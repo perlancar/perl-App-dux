@@ -1,0 +1,78 @@
+#!/usr/bin/perl
+
+use 5.010;
+use strict;
+use warnings;
+use Log::Any '$log';
+
+BEGIN { $ENV{LOG} //= 0 } # speedup startup
+
+use Getopt::Long;
+use Perinci::CmdLine::dux;
+
+# VERSION
+
+my %opts = (
+    library => [],
+    subcommands => [],
+    version => 0,
+);
+Getopt::Long::Configure('pass_through', 'no_permute');
+GetOptions(
+    'library|I=s' => $opts{library},
+    'help|h|?' => \$opts{help},
+    'version|v' => \$opts{version},
+);
+
+my $me = $0; $me =~ s!.+/!!;
+
+if ($opts{version}) {
+    print "$me version $main::VERSION\n";
+    exit 0;
+} elsif ($opts{help} || !@ARGV) {
+    print <<USAGE;
+$me - Run dux function on the command-line
+
+Usage:
+  $me --help
+  $me [common options] <dux function> [function options]
+
+*Common options* include: '--library' ('-I') to add directory to Perl search dir
+(a la Perl's '-I'), can be specified multiple times.
+
+Examples:
+  Show usage for a dux function:
+    % $me head --help
+
+  Run dux function:
+    % ls -l | $me head -n 3
+
+USAGE
+    exit 0;
+}
+
+for my $dir (@{ $opts{library} }) { require lib; lib->import($dir) }
+
+my $cmd = Perinci::CmdLine::dux->new;
+
+my $pkg = shift @ARGV;
+$pkg =~ s!::!/!g;
+my $func = $pkg; $func =~ s!.+/!!;
+my $url  = "/Data/Unixish/$pkg/$func";
+$cmd->url($url);
+$cmd->program_name($func);
+$cmd->run;
+
+#ABSTRACT: Run dux function on the command-line
+#PODNAME: dux
+
+=head1 SYNOPSIS
+
+Type C<dux --help> for more help.
+
+
+=head1 SEE ALSO
+
+L<Data::Unixish>
+
+=cut
