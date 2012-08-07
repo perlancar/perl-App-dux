@@ -3,4 +3,4 @@ package App::dux;
 # VERSION
 
 1;
-# ABSTRACT: See bin/dux
+# ABSTRACT: Run Data::Unixish function on the command-line
