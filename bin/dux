@@ -7,6 +7,10 @@ use Log::Any '$log';
 
 BEGIN { $ENV{LOG} //= 0 } # speedup startup
 
+# just to force installation of this dist and avoid complaints from
+# scan-for-extraneous-or-missing-deps script.
+use Data::Unixish;
+
 use Getopt::Long;
 use Perinci::CmdLine::dux;
 
