@@ -1,5 +1,11 @@
 Revision history for App-dux
 
+1.25    2012-08-08 (SHARYANTO)
+
+        No functional changes. Increase Perl minimum version 5.10.0 -> 5.10.1
+        (uses 'parent').
+
+
 1.24    2012-08-07 (SHARYANTO)
 
         No functional changes. Fix Abstract.
