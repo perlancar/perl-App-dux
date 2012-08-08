@@ -12,7 +12,6 @@ BEGIN { $ENV{LOG} //= 0 } # speedup startup
 use Data::Unixish;
 
 use Getopt::Long;
-use Perinci::CmdLine::dux;
 
 # VERSION
 
@@ -23,15 +22,24 @@ my %opts = (
 );
 Getopt::Long::Configure('pass_through', 'no_permute');
 GetOptions(
-    'library|I=s' => $opts{library},
-    'help|h|?' => \$opts{help},
-    'version|v' => \$opts{version},
+    'library|I=s' =>  $opts{library},
+    'help|h|?'    => \$opts{help},
+    'version|v'   => \$opts{version},
+    'list|l'      => \$opts{list},
 );
 
 my $me = $0; $me =~ s!.+/!!;
 
 if ($opts{version}) {
     print "$me version $main::VERSION\n";
+    exit 0;
+} elsif ($opts{list}) {
+    require Module::List;
+    my $mm = Module::List::list_modules("Data::Unixish::", {list_modules=>1});
+    for (keys %$mm) {
+        next unless /^Data::Unixish::([a-z].+)/;
+        say $1;
+    }
     exit 0;
 } elsif ($opts{help} || !@ARGV) {
     print <<USAGE;
@@ -57,6 +65,7 @@ USAGE
 
 for my $dir (@{ $opts{library} }) { require lib; lib->import($dir) }
 
+require Perinci::CmdLine::dux;
 my $cmd = Perinci::CmdLine::dux->new;
 
 my $pkg = shift @ARGV;
