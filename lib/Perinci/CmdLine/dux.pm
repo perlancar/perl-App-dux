@@ -8,8 +8,9 @@ sub run_subcommand {
     require Tie::Diamond;
 
     my $self = shift;
+    my $chomp = $self->{_meta}{"x.dux.strip_newlines"} // 1;
 
-    tie my(@diamond), 'Tie::Diamond', {chomp=>1} or die;
+    tie my(@diamond), 'Tie::Diamond', {chomp=>$chomp} or die;
     $self->{_args}{in}  = \@diamond;
     $self->{_args}{out} = [];
 
