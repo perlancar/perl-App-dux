@@ -1,5 +1,12 @@
 Revision history for App-dux
 
+1.27    2013-04-11 (SHARYANTO)
+
+        - Observe 'x.dux.strip_newlines' Rinci metadata attribute.
+
+        - Sort -l output.
+
+
 1.26    2012-08-08 (SHARYANTO)
 
         Add --list (-l) option to list available dux functions.
