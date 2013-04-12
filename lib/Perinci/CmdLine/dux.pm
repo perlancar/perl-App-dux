@@ -28,3 +28,16 @@ sub format_and_display_result {
 
 1;
 # ABSTRACT: Perinci::CmdLine subclass for dux cli
+
+=head1 DESCRIPTION
+
+This subclass sets `in` and `out` arguments for the dux function, and displays
+the resulting `out` array.
+
+
+=head1 SEE ALSO
+
+L<Perinci::CmdLine>
+
+=cut
+
