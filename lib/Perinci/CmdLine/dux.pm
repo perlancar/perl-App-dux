@@ -18,8 +18,10 @@ sub run_subcommand {
     # set default output format from metadata, if specified and user has not
     # specified --format
     my $mfmt = $self->{_meta}{"x.dux.default_format"};
-    $self->format($mfmt) unless
-        grep {/^--format/} @{ $self->{_orig_argv} }; # not a proper way, but will do for now
+    if ($mfmt) {
+        $self->format($mfmt) unless
+            grep {/^--format/} @{ $self->{_orig_argv} }; # not a proper way, but will do for now
+    }
 
     $self->SUPER::run_subcommand(@_);
 }
