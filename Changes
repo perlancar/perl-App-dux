@@ -1,5 +1,13 @@
 Revision history for App-dux
 
+1.28    2013-04-12 (SHARYANTO)
+
+        - Observe 'x.dux.default_format' Rinci metadata attribute.
+
+        - Show nicer error message on unknown dux function (instead of
+          Module::Load exception).
+
+
 1.27    2013-04-11 (SHARYANTO)
 
         - Observe 'x.dux.strip_newlines' Rinci metadata attribute.
