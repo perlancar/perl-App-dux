@@ -1,5 +1,11 @@
 Revision history for App-dux
 
+1.29    2013-04-12 (SHARYANTO)
+
+        No functional changes. Fix small bug in setting format from
+        x.dux.default_format.
+
+
 1.28    2013-04-12 (SHARYANTO)
 
         - Observe 'x.dux.default_format' Rinci metadata attribute.
