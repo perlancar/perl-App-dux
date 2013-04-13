@@ -1,4 +1,4 @@
-spackage Perinci::CmdLine::dux;
+package Perinci::CmdLine::dux;
 use Moo;
 extends 'Perinci::CmdLine';
 

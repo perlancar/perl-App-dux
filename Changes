@@ -1,5 +1,14 @@
 Revision history for App-dux
 
+1.30    2013-04-13 (SHARYANTO)
+
+        [REMOVED FEATURES]
+
+        - No longer observe 'x.dux.default_format'. This functionality is now
+          provided more generally by Perinci::CmdLine via the
+          'x.perinci.cmdline.default_format' attribute.
+
+
 1.29    2013-04-12 (SHARYANTO)
 
         No functional changes. Fix small bug in setting format from
