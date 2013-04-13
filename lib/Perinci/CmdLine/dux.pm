@@ -1,4 +1,4 @@
-package Perinci::CmdLine::dux;
+spackage Perinci::CmdLine::dux;
 use Moo;
 extends 'Perinci::CmdLine';
 
@@ -14,14 +14,6 @@ sub run_subcommand {
     tie my(@diamond), 'Tie::Diamond', {chomp=>$chomp} or die;
     $self->{_args}{in}  = \@diamond;
     $self->{_args}{out} = [];
-
-    # set default output format from metadata, if specified and user has not
-    # specified --format
-    my $mfmt = $self->{_meta}{"x.dux.default_format"};
-    if ($mfmt) {
-        $self->format($mfmt) unless
-            grep {/^--format/} @{ $self->{_orig_argv} }; # not a proper way, but will do for now
-    }
 
     $self->SUPER::run_subcommand(@_);
 }
