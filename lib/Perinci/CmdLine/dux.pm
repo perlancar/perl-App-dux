@@ -1,4 +1,5 @@
 package Perinci::CmdLine::dux;
+use 5.010;
 use Moo;
 extends 'Perinci::CmdLine';
 
@@ -14,16 +15,33 @@ sub run_subcommand {
     $self->{_args}{in}  = \@diamond;
 
     # set `out` argument for the dux function
-    my $streamo = $self->{_meta}{"x.dux.is_stream_output"} // 0;
+    my $streamo = $self->{_meta}{"x.dux.is_stream_output"};
+    my $fmt = $self->format;
+    if (!defined($streamo)) {
+        # turn on streaming if format is simple text
+        my $iactive;
+        if (-t STDOUT) {
+            $iactive = 1;
+        } elsif ($ENV{INTERACTIVE}) {
+            $iactive = 1;
+        } elsif (defined($ENV{INTERACTIVE}) && !$ENV{INTERACTIVE}) {
+            $iactive = 0;
+        }
+        $streamo = 1 if $fmt eq 'text-simple' || $fmt eq 'text' && !$iactive;
+    }
+    #say "fmt=$fmt, streamo=$streamo";
     if ($streamo) {
-        die "Can't format stream as " . $self->format .
-            ", please use --format text" unless $self->format =~ /^text/;
+        die "Can't format stream as $fmt, please use --format text-simple\n"
+            unless $self->format =~ /^text/;
         require Tie::Simple;
         my @out;
         tie @out, "Tie::Simple", undef,
             PUSH => sub {
                 my $self = shift;
-                print @_;
+                for (@_) {
+                    print;
+                    print "\n" unless /\n\z/;
+                }
             };
         $self->{_args}{out} = \@out;
     } else {
