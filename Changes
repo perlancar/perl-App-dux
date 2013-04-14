@@ -1,5 +1,16 @@
 Revision history for App-dux
 
+1.32    2013-04-14 (SHARYANTO) (not yet released)
+
+        [ENHANCEMENTS]
+
+        - Support output streaming (for infinite outputs and immediate
+          displaying of result). Format needs to be 'text', function needs to
+          declare a true 'x.dux.is_stream_output' property attribute, where dux
+          will setup a tied array which prints result as items are being pushed
+          to it.
+
+
 1.31    2013-04-13 (SHARYANTO)
 
         No functional changes. Set Perinci::CmdLine dep version.
