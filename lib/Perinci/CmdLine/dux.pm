@@ -33,6 +33,7 @@ sub run_subcommand {
     if ($streamo) {
         die "Can't format stream as $fmt, please use --format text-simple\n"
             unless $self->format =~ /^text/;
+        $self->{_is_stream_output} = 1;
         require Tie::Simple;
         my @out;
         tie @out, "Tie::Simple", undef,
@@ -52,6 +53,12 @@ sub run_subcommand {
 
 sub format_result {
     my $self = shift;
+
+    if ($self->{_is_stream_output}) {
+        $self->{_fres} = "";
+        return;
+    }
+
     if ($self->{_res} && $self->{_res}[0] == 200) {
         # insert out to result, so it can be displayed
         $self->{_res}[2] = $self->{_args}{out};
