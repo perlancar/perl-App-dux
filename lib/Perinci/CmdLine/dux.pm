@@ -37,10 +37,9 @@ sub run_subcommand {
         my @out;
         tie @out, "Tie::Simple", undef,
             PUSH => sub {
-                my $self = shift;
+                my $data = shift;
                 for (@_) {
-                    print;
-                    print "\n" unless /\n\z/;
+                    print $self->format_row($_);
                 }
             };
         $self->{_args}{out} = \@out;
