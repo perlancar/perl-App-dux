@@ -31,9 +31,10 @@ if ($opts{version}) {
     exit 0;
 } elsif ($opts{list}) {
     require Module::List;
-    my $mm = Module::List::list_modules("Data::Unixish::", {list_modules=>1});
+    my $mm = Module::List::list_modules("Data::Unixish::",
+                                        {list_modules=>1, recurse=>1});
     for (sort keys %$mm) {
-        next unless /^Data::Unixish::([a-z].+)/;
+        next unless /^Data::Unixish::([a-z].*)/;
         say $1;
     }
     exit 0;
