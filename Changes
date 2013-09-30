@@ -1,5 +1,11 @@
 Revision history for App-dux
 
+1.34    2013-09-30 (SHARYANTO)
+
+        - Add special argument to dux function -dux_cli => 1 to let function be
+          aware it is being run under 'dux' CLI app.
+
+
 1.33    2013-04-19 (SHARYANTO)
 
         [BUG FIXES]
@@ -20,7 +26,7 @@ Revision history for App-dux
 
 1.31    2013-04-13 (SHARYANTO)
 
-        No functional changes. Set Perinci::CmdLine dep version.
+        - No functional changes. Set Perinci::CmdLine dep version.
 
 
 1.30    2013-04-13 (SHARYANTO)
@@ -34,8 +40,8 @@ Revision history for App-dux
 
 1.29    2013-04-12 (SHARYANTO)
 
-        No functional changes. Fix small bug in setting format from
-        x.dux.default_format.
+        - No functional changes. Fix small bug in setting format from
+          x.dux.default_format.
 
 
 1.28    2013-04-12 (SHARYANTO)
@@ -55,21 +61,21 @@ Revision history for App-dux
 
 1.26    2012-08-08 (SHARYANTO)
 
-        Add --list (-l) option to list available dux functions.
+        - Add --list (-l) option to list available dux functions.
 
 
 1.25    2012-08-08 (SHARYANTO)
 
-        No functional changes. Increase Perl minimum version 5.10.0 -> 5.10.1
-        (uses 'parent').
+        - No functional changes. Increase Perl minimum version 5.10.0 -> 5.10.1
+          (uses 'parent').
 
 
 1.24    2012-08-07 (SHARYANTO)
 
-        No functional changes. Fix Abstract.
+        - No functional changes. Fix Abstract.
 
 
 1.23    2012-08-07 (SHARYANTO)
 
-        First version. Split from Data-Unixish to resolve circular dependency
-        problem (reported by Dagfinn Ilmari Mannsåker).
+        - First version. Split from Data-Unixish to resolve circular dependency
+          problem (reported by Dagfinn Ilmari Mannsåker).
