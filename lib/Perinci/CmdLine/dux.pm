@@ -48,6 +48,8 @@ sub run_subcommand {
         $self->{_args}{out} = [];
     }
 
+    $self->{_args}{-dux_cli} = 1;
+
     $self->SUPER::run_subcommand(@_);
 }
 
@@ -71,8 +73,11 @@ sub format_result {
 
 =head1 DESCRIPTION
 
-This subclass sets `in` and `out` arguments for the dux function, and displays
-the resulting `out` array.
+This subclass sets C<in> and C<out> arguments for the dux function, and displays
+the resulting <out> array.
+
+It also add a special flag function argument C<< -dux_cli => 1 >> so the
+function is aware it is being run through the dux CLI application.
 
 
 =head1 SEE ALSO
@@ -80,4 +85,3 @@ the resulting `out` array.
 L<Perinci::CmdLine>
 
 =cut
-
