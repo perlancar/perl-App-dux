@@ -5,6 +5,12 @@ extends 'Perinci::CmdLine';
 
 # VERSION
 
+# we don't have our own color theme class
+has color_theme_class_prefix => (
+    is => 'rw',
+    default => sub { 'Perinci::CmdLine::ColorTheme' },
+);
+
 sub run_subcommand {
     my $self = shift;
 
