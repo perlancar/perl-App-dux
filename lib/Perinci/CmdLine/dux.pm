@@ -77,6 +77,8 @@ sub format_result {
 1;
 # ABSTRACT: Perinci::CmdLine subclass for dux cli
 
+=for Pod::Coverage .+
+
 =head1 DESCRIPTION
 
 This subclass sets C<in> and C<out> arguments for the dux function, and displays
