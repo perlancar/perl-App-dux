@@ -1,5 +1,11 @@
 Revision history for App-dux
 
+1.36    2013-11-07 (SHARYANTO)
+
+        - No functional changes. Rebuild to test MetaCPAN indexing (previous
+          release failed to be indexed by MetaCPAN).
+
+
 1.35    2013-10-04 (SHARYANTO)
 
         - No functional changes. Adjust to recent version of Perinci::CmdLine
