@@ -1,5 +1,10 @@
 Revision history for App-dux
 
+1.38    2013-11-11 (SHARYANTO)
+
+        - Read input and print output as UTF-8.
+
+
 1.37    2013-11-11 (SHARYANTO)
 
         - No functional changes. Show also Data::Unixish version in --version.
