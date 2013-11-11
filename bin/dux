@@ -28,6 +28,7 @@ my $me = $0; $me =~ s!.+/!!;
 
 if ($opts{version}) {
     print "$me version $main::VERSION\n";
+    require Data::Unixish;
     print "  Data::Unixish version version $Data::Unixish::VERSION\n";
     exit 0;
 } elsif ($opts{list}) {
