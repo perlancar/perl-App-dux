@@ -11,10 +11,12 @@ sub color_theme_class_prefix { 'Perinci::CmdLine::ColorTheme' }
 sub run_subcommand {
     my $self = shift;
 
+    binmode(STDOUT, ":utf8");
+
     # set `in` argument for the dux function
     my $chomp = $self->{_meta}{"x.dux.strip_newlines"} // 1;
     require Tie::Diamond;
-    tie my(@diamond), 'Tie::Diamond', {chomp=>$chomp} or die;
+    tie my(@diamond), 'Tie::Diamond', {chomp=>$chomp, utf8=>1} or die;
     $self->{_args}{in}  = \@diamond;
 
     # set `out` argument for the dux function
