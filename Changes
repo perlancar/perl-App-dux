@@ -1,5 +1,11 @@
 Revision history for App-dux
 
+1.39    2013-12-13 (SHARYANTO)
+
+        - No functional changes. Adjust to Perinci::CmdLine 0.97+ (switch from
+          Locale::Maketext to Locale::TextDomain).
+
+
 1.38    2013-11-11 (SHARYANTO)
 
         - Read input and print output as UTF-8.
