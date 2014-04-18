@@ -8,7 +8,7 @@ extends 'Perinci::CmdLine';
 # we don't have our own color theme class
 sub color_theme_class_prefix { 'Perinci::CmdLine::ColorTheme' }
 
-sub run_subcommand {
+sub run_call {
     my $self = shift;
 
     binmode(STDOUT, ":utf8");
@@ -55,7 +55,7 @@ sub run_subcommand {
 
     $self->{_args}{-dux_cli} = 1;
 
-    $self->SUPER::run_subcommand(@_);
+    $self->SUPER::run_call(@_);
 }
 
 sub format_result {
