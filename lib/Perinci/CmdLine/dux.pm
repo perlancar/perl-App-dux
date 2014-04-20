@@ -14,13 +14,16 @@ sub run_call {
     binmode(STDOUT, ":utf8");
 
     # set `in` argument for the dux function
-    my $chomp = $self->{_meta}{"x.dux.strip_newlines"} // 1;
+    my $chomp = $self->{_meta}{"x.app.dux.strip_newlines"} //
+        $self->{_meta}{"x.dux.strip_newlines"} // # backward-compat, will be removed someday
+            1;
     require Tie::Diamond;
     tie my(@diamond), 'Tie::Diamond', {chomp=>$chomp, utf8=>1} or die;
     $self->{_args}{in}  = \@diamond;
 
     # set `out` argument for the dux function
-    my $streamo = $self->{_meta}{"x.dux.is_stream_output"};
+    my $streamo = $self->{_meta}{"x.app.dux.is_stream_output"} //
+        $self->{_meta}{"x.dux.is_stream_output"}; # backward-compat, will be removed someday
     my $fmt = $self->format;
     if (!defined($streamo)) {
         # turn on streaming if format is simple text
