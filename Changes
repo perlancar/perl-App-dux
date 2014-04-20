@@ -1,5 +1,14 @@
 Revision history for App-dux
 
+1.41    2014-04-20 (SHARYANTO)
+
+        - No functional changes.
+
+        - Rename attribute x.dux.* to x.app.dux.* to be more consistent (use
+          lowercased package name as prefix), but still support old names for
+          backward-compat for now.
+
+
 1.40    2014-04-18 (SHARYANTO)
 
         - No functional changes.
