@@ -1,5 +1,11 @@
 Revision history for App-dux
 
+1.42    2014-04-24 (SHARYANTO)
+
+        - Pass -cmdline object to function, to let dux functions be aware when
+          called under CLI.
+
+
 1.41    2014-04-20 (SHARYANTO)
 
         - No functional changes.
