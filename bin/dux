@@ -10,6 +10,7 @@ BEGIN { $ENV{LOG} //= 0 } # speedup startup
 use Getopt::Long;
 
 # VERSION
+# DATE
 
 my %opts = (
     library => [],
@@ -36,7 +37,7 @@ if ($opts{version}) {
     my $mm = Module::List::list_modules("Data::Unixish::",
                                         {list_modules=>1, recurse=>1});
     for (sort keys %$mm) {
-        next unless /^Data::Unixish::([a-z].*)/;
+        next unless /\AData::Unixish::((?:\w+::)*[a-z][a-z0-9_]*)\z/;
         say $1;
     }
     exit 0;

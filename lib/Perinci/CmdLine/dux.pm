@@ -4,6 +4,7 @@ use Moo;
 extends 'Perinci::CmdLine';
 
 # VERSION
+# DATE
 
 # we don't have our own color theme class
 sub color_theme_class_prefix { 'Perinci::CmdLine::ColorTheme' }
