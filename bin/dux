@@ -78,6 +78,7 @@ my $func = $pkg; $func =~ s!.+/!!;
 my $url  = "/Data/Unixish/$pkg/$func";
 $cmd->url($url);
 $cmd->program_name($func);
+$cmd->pass_cmdline_object(1);
 $cmd->run;
 
 #ABSTRACT: Run dux function on the command-line
