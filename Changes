@@ -1,5 +1,12 @@
 Revision history for App-dux
 
+1.43    2014-04-25 (SHARYANTO)
+
+        [BUG FIXES]
+
+        - Fix regex in 'dux -l' to show Data::Unixish::ANSI::* functions.
+
+
 1.42    2014-04-24 (SHARYANTO)
 
         - Pass -cmdline object to function, to let dux functions be aware when
