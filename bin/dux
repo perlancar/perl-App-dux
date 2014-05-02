@@ -144,6 +144,8 @@ Like Perl's C<-I> option.
 
 =head1 ENVIRONMENT
 
+See L<Perinci::CmdLine> for a more complete list.
+
 =head2 COLOR (bool)
 
 Whether to force enable/disable color. The default is to enable when running
