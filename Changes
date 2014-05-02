@@ -1,5 +1,10 @@
 Revision history for App-dux
 
+1.44    2014-05-02 (SHARYANTO)
+
+        - Add --long option for -l.
+
+
 1.43    2014-04-25 (SHARYANTO)
 
         [BUG FIXES]

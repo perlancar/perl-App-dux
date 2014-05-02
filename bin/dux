@@ -135,6 +135,8 @@ whether function is an itemfunc (C<i> symbol), whether function is unsafe (C<U>
 symbol, meaning function evals string from user input), function's version and
 tags.
 
+=over
+
 =item --library=STR, -I
 
 Like Perl's C<-I> option.
