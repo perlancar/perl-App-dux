@@ -43,7 +43,7 @@ if ($opts{version}) {
         next unless $mod =~ /\AData::Unixish::((?:\w+::)*[a-z][a-z0-9_]*)\z/;
         my $duxf = $1;
         if ($opts{long}) {
-            my ($is_itemfunc, $is_unsafe, $meta, $v, $tags);
+            my ($is_itemfunc, $is_unsafe, $meta, $v, $summary, $tags);
             if (eval "require $mod") {
                 no strict 'refs';
                 my $duxfleaf = $duxf; $duxfleaf =~ s/.+:://;
@@ -51,16 +51,18 @@ if ($opts{version}) {
                 $meta     = $metas->{$duxfleaf};
                 $tags     = $meta->{tags} // [];
                 $v        = ${"$mod\::VERSION"};
+                $summary  = $meta->{summary};
                 $is_itemfunc = 'itemfunc' ~~ @$tags;
                 $is_unsafe   = 'unsafe' ~~ @$tags;
             }
+            my $tags_s = join(",", @$tags);
             say sprintf(
                 "%s%s------ %-16s %8s %s",
                 ($is_itemfunc ? "i" : defined($is_itemfunc) ? "-" : "?"),
                 ($is_unsafe ? "U" : defined($is_unsafe) ? "-" : "?"),
                 $duxf,
                 $v // '?',
-                join(",", sort @$tags),
+                ($summary // "") . (length($tags_s) ? " ($tags_s)":""),
             );
         } else {
             say $duxf;
