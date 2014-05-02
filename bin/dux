@@ -3,6 +3,7 @@
 use 5.010001;
 use strict;
 use warnings;
+use experimental 'smartmatch';
 use Log::Any '$log';
 
 BEGIN { $ENV{LOG} //= 0 } # speedup startup
@@ -16,6 +17,7 @@ my %opts = (
     library => [],
     subcommands => [],
     version => 0,
+    long => 0,
 );
 Getopt::Long::Configure('pass_through', 'no_permute');
 GetOptions(
@@ -23,6 +25,7 @@ GetOptions(
     'help|h|?'    => \$opts{help},
     'version|v'   => \$opts{version},
     'list|l'      => \$opts{list},
+    'long'        => \$opts{long},
 );
 
 my $me = $0; $me =~ s!.+/!!;
@@ -36,9 +39,32 @@ if ($opts{version}) {
     require Module::List;
     my $mm = Module::List::list_modules("Data::Unixish::",
                                         {list_modules=>1, recurse=>1});
-    for (sort keys %$mm) {
-        next unless /\AData::Unixish::((?:\w+::)*[a-z][a-z0-9_]*)\z/;
-        say $1;
+    for my $mod (sort keys %$mm) {
+        next unless $mod =~ /\AData::Unixish::((?:\w+::)*[a-z][a-z0-9_]*)\z/;
+        my $duxf = $1;
+        if ($opts{long}) {
+            my ($is_itemfunc, $is_unsafe, $meta, $v, $tags);
+            if (eval "require $mod") {
+                no strict 'refs';
+                my $duxfleaf = $duxf; $duxfleaf =~ s/.+:://;
+                my $metas = \%{"$mod\::SPEC"};
+                $meta     = $metas->{$duxfleaf};
+                $tags     = $meta->{tags} // [];
+                $v        = ${"$mod\::VERSION"};
+                $is_itemfunc = 'itemfunc' ~~ @$tags;
+                $is_unsafe   = 'unsafe' ~~ @$tags;
+            }
+            say sprintf(
+                "%s%s------ %-16s %8s %s",
+                ($is_itemfunc ? "i" : defined($is_itemfunc) ? "-" : "?"),
+                ($is_unsafe ? "U" : defined($is_unsafe) ? "-" : "?"),
+                $duxf,
+                $v // '?',
+                join(",", sort @$tags),
+            );
+        } else {
+            say $duxf;
+        }
     }
     exit 0;
 } elsif ($opts{help} || !@ARGV) {
@@ -47,6 +73,7 @@ $me - Run dux function on the command-line
 
 Usage:
   $me --help
+  $me --list | -l [ --long ]
   $me [common options] <dux function> [function options]
 
 *Common options* include: '--library' ('-I') to add directory to Perl search dir
@@ -87,13 +114,45 @@ $cmd->run;
 
 =head1 SYNOPSIS
 
-Type C<dux --help> for more help.
+ dux --help | -h
+ dux --list | -l [ --long ]
+ dux [common opts] <dux function> [function opts ...] [file ...]
 
 
 =head1 DESCRIPTION
 
-By default this script sets LOG environment to 0. If you want to enable logging,
-you have to specifically set LOG=1.
+This script runs a dux function on the command line. Dux function receives items
+as lines from files/stdin, and outputs items as lines of stdout.
+
+
+=head1 COMMAND-LINE OPTIONS
+
+=head2 --list, -l
+
+List available dux functions. If run without the C<--long> option, will just
+output names of dux functions. Otherwise will also display extra information:
+whether function is an itemfunc (C<i> symbol), whether function is unsafe (C<U>
+symbol, meaning function evals string from user input), function's version and
+tags.
+
+=item --library=STR, -I
+
+Like Perl's C<-I> option.
+
+=back
+
+
+=head1 ENVIRONMENT
+
+=head2 COLOR (bool)
+
+Whether to force enable/disable color. The default is to enable when running
+interactively.
+
+=head2 LOG (bool, default 0)
+
+Whether to enable logging. By default this script sets LOG environment to 0. If
+you want to enable logging, you have to specifically set LOG=1.
 
 
 =head1 SEE ALSO
