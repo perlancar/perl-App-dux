@@ -31,9 +31,12 @@ GetOptions(
 my $me = $0; $me =~ s!.+/!!;
 
 if ($opts{version}) {
-    print "$me version $main::VERSION\n";
+    no warnings 'once';
+    print "$me version $main::VERSION ($main::DATE)\n";
     require Data::Unixish;
-    print "  Data::Unixish version version $Data::Unixish::VERSION\n";
+    print "  Data::Unixish version $Data::Unixish::VERSION ($Data::Unixish::DATE)\n";
+    require Perinci::CmdLine;
+    print "  Perinci::CmdLine version $Perinci::CmdLine::VERSION ($Perinci::CmdLine::DATE)\n";
     exit 0;
 } elsif ($opts{list}) {
     require Module::List;
