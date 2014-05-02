@@ -1,5 +1,10 @@
 Revision history for App-dux
 
+1.45    2014-05-02 (SHARYANTO)
+
+        - Forgot to add summary in --long -l.
+
+
 1.44    2014-05-02 (SHARYANTO)
 
         - Add --long option for -l.
