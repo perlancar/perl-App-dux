@@ -62,7 +62,7 @@ if ($opts{version}) {
             } else {
                 $tags = [];
             }
-            my $tags_s = join(",", @$tags);
+            my $tags_s = join(",", sort @$tags);
             say sprintf(
                 "%s%s------ %-16s %8s %s",
                 ($is_itemfunc ? "i" : defined($is_itemfunc) ? "-" : "?"),
