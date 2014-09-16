@@ -36,9 +36,6 @@ if ($opts{version}) {
     require Data::Unixish;
     print "  Data::Unixish version $Data::Unixish::VERSION".
         " ($Data::Unixish::DATE)\n";
-    require Perinci::CmdLine;
-    print "  Perinci::CmdLine version $Perinci::CmdLine::VERSION".
-        " ($Perinci::CmdLine::DATE)\n";
     exit 0;
 } elsif ($opts{list}) {
     require Module::List;

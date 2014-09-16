@@ -1,31 +1,33 @@
 package Perinci::CmdLine::dux;
+
+# DATE
+# VERSION
+
 use 5.010;
 use Moo;
-extends 'Perinci::CmdLine';
-
-# VERSION
-# DATE
+#extends 'Perinci::CmdLine';
+extends 'Perinci::CmdLine::Lite';
 
 # we don't have our own color theme class
-sub color_theme_class_prefix { 'Perinci::CmdLine::ColorTheme' }
+#sub color_theme_class_prefix { 'Perinci::CmdLine::ColorTheme' }
 
 sub run_call {
-    my $self = shift;
+    my ($self, $r) = @_;
 
     binmode(STDOUT, ":utf8");
 
     # set `in` argument for the dux function
-    my $chomp = $self->{_meta}{"x.app.dux.strip_newlines"} //
-        $self->{_meta}{"x.dux.strip_newlines"} // # backward-compat, will be removed someday
+    my $chomp = $r->{meta}{"x.app.dux.strip_newlines"} //
+        $r->{meta}{"x.dux.strip_newlines"} // # backward-compat, will be removed someday
             1;
     require Tie::Diamond;
     tie my(@diamond), 'Tie::Diamond', {chomp=>$chomp, utf8=>1} or die;
-    $self->{_args}{in}  = \@diamond;
+    $r->{args}{in}  = \@diamond;
 
     # set `out` argument for the dux function
-    my $streamo = $self->{_meta}{"x.app.dux.is_stream_output"} //
-        $self->{_meta}{"x.dux.is_stream_output"}; # backward-compat, will be removed someday
-    my $fmt = $self->format;
+    my $streamo = $r->{meta}{"x.app.dux.is_stream_output"} //
+        $r->{meta}{"x.dux.is_stream_output"}; # backward-compat, will be removed someday
+    my $fmt = $r->{format} // 'text';
     if (!defined($streamo)) {
         # turn on streaming if format is simple text
         my $iactive;
@@ -41,40 +43,37 @@ sub run_call {
     #say "fmt=$fmt, streamo=$streamo";
     if ($streamo) {
         die "Can't format stream as $fmt, please use --format text-simple\n"
-            unless $self->format =~ /^text/;
-        $self->{_is_stream_output} = 1;
+            unless $fmt =~ /^text/;
+        $r->{is_stream_output} = 1;
         require Tie::Simple;
         my @out;
         tie @out, "Tie::Simple", undef,
             PUSH => sub {
                 my $data = shift;
                 for (@_) {
-                    print $self->format_row($_);
+                    print $self->hook_format_row($r, $_);
                 }
             };
-        $self->{_args}{out} = \@out;
+        $r->{args}{out} = \@out;
     } else {
-        $self->{_args}{out} = [];
+        $r->{args}{out} = [];
     }
 
-    $self->{_args}{-dux_cli} = 1;
+    $r->{args}{-dux_cli} = 1;
 
-    $self->SUPER::run_call(@_);
+    $self->SUPER::run_call($r);
 }
 
-sub format_result {
-    my $self = shift;
+sub hook_format_result {
+    my ($self, $r) = @_;
 
-    if ($self->{_is_stream_output}) {
-        $self->{_fres} = "";
-        return;
-    }
+    return '' if $r->{is_stream_output};
 
-    if ($self->{_res} && $self->{_res}[0] == 200) {
+    if ($r->{res} && $r->{res}[0] == 200 && $r->{args}{-dux_cli}) {
         # insert out to result, so it can be displayed
-        $self->{_res}[2] = $self->{_args}{out};
+        $r->{res}[2] = $r->{args}{out};
     }
-    $self->SUPER::format_result(@_);
+    $self->SUPER::hook_format_result($r);
 }
 
 1;
