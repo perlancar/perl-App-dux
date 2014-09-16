@@ -1,5 +1,13 @@
 Revision history for App-dux
 
+1.46    2014-09-16 (PERLANCAR)
+
+        - Fix broken stuff (adjust to new Perinci::CmdLine::*).
+
+        - Switch from Perinci::CmdLine to Perinci::CmdLine::Lite for faster
+          startup.
+
+
 1.45    2014-05-02 (SHARYANTO)
 
         - Forgot to add summary in --long -l.
