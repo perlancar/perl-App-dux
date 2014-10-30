@@ -1,5 +1,11 @@
 Revision history for App-dux
 
+1.47    2014-10-30 (PERLANCAR)
+
+	- Turn off streaming if response is an error response, so user can
+	  see the error.
+
+
 1.46    2014-09-16 (PERLANCAR)
 
         - Fix broken stuff (adjust to new Perinci::CmdLine::*).
