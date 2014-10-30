@@ -40,7 +40,8 @@ sub run_call {
         }
         $streamo = 1 if $fmt eq 'text-simple' || $fmt eq 'text' && !$iactive;
     }
-    #say "fmt=$fmt, streamo=$streamo";
+
+    #say "fmt=$fmt, streamo=".($streamo//0);
     if ($streamo) {
         die "Can't format stream as $fmt, please use --format text-simple\n"
             unless $fmt =~ /^text/;
@@ -66,6 +67,11 @@ sub run_call {
 
 sub hook_format_result {
     my ($self, $r) = @_;
+
+    # turn off streaming if response is an error response
+    if ($r->{res}[0] !~ /\A2/) {
+        $r->{is_stream_output} = 0;
+    }
 
     return '' if $r->{is_stream_output};
 
