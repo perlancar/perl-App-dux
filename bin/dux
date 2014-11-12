@@ -131,7 +131,7 @@ This script runs a dux function on the command line. Dux function receives items
 as lines from files/stdin, and outputs items as lines of stdout.
 
 
-=head1 COMMAND-LINE OPTIONS
+=head1 OPTIONS
 
 =head2 --list, -l
 
