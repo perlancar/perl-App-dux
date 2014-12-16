@@ -116,7 +116,7 @@ $cmd->pass_cmdline_object(1);
 $cmd->run;
 
 #ABSTRACT: Run dux function on the command-line
-#PODNAME: dux
+#PODNAME:
 
 =head1 SYNOPSIS
 
