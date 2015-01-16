@@ -82,6 +82,20 @@ sub hook_format_result {
     $self->SUPER::hook_format_result($r);
 }
 
+sub hook_display_result {
+    my ($self, $r) = @_;
+
+    use experimental 'smartmatch';
+    my $res = $r->{res};
+    my $x = $res->[2];
+    my $i = 0;
+    while (~~(@$x) > 0) {
+        $log->tracef("[pericmd] Running hook_format_row ...") unless $i;
+        $i++;
+        print $handle $self->hook_format_row($r, shift(@$x));
+    }
+}
+
 1;
 # ABSTRACT: Perinci::CmdLine subclass for dux cli
 
