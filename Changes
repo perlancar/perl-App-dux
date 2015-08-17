@@ -1,5 +1,10 @@
 Revision history for App-dux
 
+1.50    2015-08-17 (PERLANCAR)
+
+	- [Bugfix] Unbreak: update to recent Perinci::CmdLine::Lite.
+
+
 1.49    2015-08-17 (PERLANCAR)
 
 	- No functional changes.
