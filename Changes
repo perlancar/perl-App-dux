@@ -1,5 +1,12 @@
 Revision history for App-dux
 
+1.49    2015-08-17 (PERLANCAR)
+
+	- No functional changes.
+
+	- Switch from Log::Any to Log::Any::IfLOG.
+
+
 1.48    2014-12-27 (PERLANCAR)
 
 	- Replace Module::Path with Module::Path::More.
