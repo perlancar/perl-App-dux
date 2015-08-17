@@ -8,9 +8,7 @@ use 5.010001;
 use strict;
 use warnings;
 use experimental 'smartmatch';
-use Log::Any '$log';
-
-BEGIN { $ENV{LOG} //= 0 } # speedup startup
+use Log::Any::IfLOG '$log';
 
 use Getopt::Long;
 
@@ -161,10 +159,16 @@ See L<Perinci::CmdLine> for a more complete list.
 Whether to force enable/disable color. The default is to enable when running
 interactively.
 
-=head2 LOG (bool, default 0)
+=head2 LOG (bool)
 
-Whether to enable logging. By default this script sets LOG environment to 0. If
-you want to enable logging, you have to specifically set LOG=1.
+=head2 VERBOSE (bool)
+
+=head2 TRACE (bool)
+
+=head2 DEBUG (bool)
+
+These environment variables can be turned on to enable logging at various
+levels.
 
 
 =head1 SEE ALSO
