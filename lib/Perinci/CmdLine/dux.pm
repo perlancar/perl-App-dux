@@ -4,6 +4,7 @@ package Perinci::CmdLine::dux;
 # VERSION
 
 use 5.010;
+use Log::Any::IfLOG '$log';
 use Moo;
 #extends 'Perinci::CmdLine';
 extends 'Perinci::CmdLine::Lite';
@@ -11,7 +12,7 @@ extends 'Perinci::CmdLine::Lite';
 # we don't have our own color theme class
 #sub color_theme_class_prefix { 'Perinci::CmdLine::ColorTheme' }
 
-sub run_call {
+sub action_call {
     my ($self, $r) = @_;
 
     binmode(STDOUT, ":utf8");
@@ -62,7 +63,7 @@ sub run_call {
 
     $r->{args}{-dux_cli} = 1;
 
-    $self->SUPER::run_call($r);
+    $self->SUPER::action_call($r);
 }
 
 sub hook_format_result {
@@ -82,19 +83,18 @@ sub hook_format_result {
     $self->SUPER::hook_format_result($r);
 }
 
-#sub hook_display_result {
-#    my ($self, $r) = @_;
-#
-#    use experimental 'smartmatch';
-#    my $res = $r->{res};
-#    my $x = $res->[2];
-#    my $i = 0;
-#    while (~~(@$x) > 0) {
-#        $log->tracef("[pericmd] Running hook_format_row ...") unless $i;
-#        $i++;
-#        print $handle $self->hook_format_row($r, shift(@$x));
-#    }
-#}
+sub hook_display_result {
+    my ($self, $r) = @_;
+
+    my $res = $r->{res};
+    my $x = $r->{args}{out};
+    my $i = 0;
+    while (~~(@$x) > 0) {
+        $log->tracef("[pericmd] Running hook_format_row ...") unless $i;
+        $i++;
+        print $self->hook_format_row($r, shift(@$x));
+    }
+}
 
 1;
 # ABSTRACT: Perinci::CmdLine subclass for dux cli
