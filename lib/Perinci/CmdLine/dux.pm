@@ -84,6 +84,8 @@ sub hook_format_result {
 }
 
 sub hook_display_result {
+    no warnings 'uninitialized';
+
     my ($self, $r) = @_;
 
     my $res = $r->{res};
