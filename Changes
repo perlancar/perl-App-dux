@@ -1,5 +1,14 @@
 Revision history for App-dux
 
+1.51    2015-11-22 (PERLANCAR)
+
+	- No functional changes.
+
+	- Remove perl warning (Use of unitialized value $x in array
+	  dereference in line 92), don't know why this only happens when
+	  output is being piped.
+
+
 1.50    2015-08-17 (PERLANCAR)
 
 	- [Bugfix] Unbreak: update to recent Perinci::CmdLine::Lite.
