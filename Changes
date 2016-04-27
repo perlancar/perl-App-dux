@@ -1,5 +1,13 @@
 Revision history for App-dux
 
+1.52    2016-04-27 (PERLANCAR)
+
+	- [Bugfix] Output was broken for actions other than call (e.g.
+	  help) because 'out' is only defined for action=call.
+
+	- We don't need to read env for now (e.g. DUX_OPT).
+
+
 1.51    2015-11-22 (PERLANCAR)
 
 	- No functional changes.
