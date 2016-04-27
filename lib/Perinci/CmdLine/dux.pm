@@ -90,11 +90,17 @@ sub hook_display_result {
 
     my $res = $r->{res};
     my $x = $r->{args}{out};
-    my $i = 0;
-    while (~~(@$x) > 0) {
-        $log->tracef("[pericmd] Running hook_format_row ...") unless $i;
-        $i++;
-        print $self->hook_format_row($r, shift(@$x));
+
+    if ($x) {
+        # we only set 'out' for action=call, not for other actions
+        my $i = 0;
+        while (~~(@$x) > 0) {
+            $log->tracef("[pericmd] Running hook_format_row ...") unless $i;
+            $i++;
+            print $self->hook_format_row($r, shift(@$x));
+        }
+    } else {
+        print $r->{fres};
     }
 }
 
