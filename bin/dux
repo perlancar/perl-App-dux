@@ -99,7 +99,7 @@ USAGE
 for my $dir (@{ $opts{library} }) { require lib; lib->import($dir) }
 
 require Perinci::CmdLine::dux;
-my $cmd = Perinci::CmdLine::dux->new;
+my $cmd = Perinci::CmdLine::dux->new(read_env=>0);
 
 my $pkg = shift @ARGV;
 require Module::Path::More;
