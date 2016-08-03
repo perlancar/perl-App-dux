@@ -102,10 +102,10 @@ require Perinci::CmdLine::dux;
 my $cmd = Perinci::CmdLine::dux->new(read_env=>0);
 
 my $pkg = shift @ARGV;
-require Module::Path::More;
+require Module::Installed::Tiny;
 die "Unknown dux function $pkg, ".
     "please see list of available functions using `$me -l`\n" unless
-    Module::Path::More::module_path(module=>"Data::Unixish::$pkg");
+    Module::Installed::Tiny::module_installed("Data::Unixish::$pkg");
 
 $pkg =~ s!::!/!g;
 my $func = $pkg; $func =~ s!.+/!!;
