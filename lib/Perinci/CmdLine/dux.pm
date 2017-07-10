@@ -4,7 +4,7 @@ package Perinci::CmdLine::dux;
 # VERSION
 
 use 5.010;
-use Log::Any::IfLOG '$log';
+use Log::ger;
 use Moo;
 #extends 'Perinci::CmdLine';
 extends 'Perinci::CmdLine::Lite';
@@ -95,7 +95,7 @@ sub hook_display_result {
         # we only set 'out' for action=call, not for other actions
         my $i = 0;
         while (~~(@$x) > 0) {
-            $log->tracef("[pericmd] Running hook_format_row ...") unless $i;
+            log_trace("[pericmd] Running hook_format_row ...") unless $i;
             $i++;
             print $self->hook_format_row($r, shift(@$x));
         }
