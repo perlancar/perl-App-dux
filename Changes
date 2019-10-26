@@ -1,3 +1,8 @@
+1.540   2019-10-26  Released-By: PERLANCAR; Urgency: medium
+
+	- [ux] Simplify CLI, turn off config reading.
+
+
 1.53    2017-07-10  Released-By: PERLANCAR
 
 	- Replace code to check for installed module from using

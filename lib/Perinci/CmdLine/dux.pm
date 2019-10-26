@@ -15,7 +15,7 @@ extends 'Perinci::CmdLine::Lite';
 sub action_call {
     my ($self, $r) = @_;
 
-    binmode(STDOUT, ":utf8");
+    binmode(STDOUT, ":encoding(utf8)");
 
     # set `in` argument for the dux function
     my $chomp = $r->{meta}{"x.app.dux.strip_newlines"} //
