@@ -2,3 +2,4 @@ App-dux-*
 .build
 *~
 nytprof*
+.DS_Store
